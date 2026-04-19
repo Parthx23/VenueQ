@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VenueFlow AI - Attendee Queue Explorer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800;900&amp;family=Inter:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#f9f8f5",
+                      "on-surface": "#28251d",
+                      "on-primary-fixed-variant": "#004f54",
+                      "primary-fixed": "#9af0f7",
+                      "surface-variant": "#dbe4e6",
+                      "primary-container": "#9af0f7",
+                      "on-secondary-container": "#041f22",
+                      "background": "#f7f6f2",
+                      "on-tertiary-container": "#331200",
+                      "secondary-fixed-dim": "#b0cbd0",
+                      "on-primary-fixed": "#002022",
+                      "on-secondary-fixed": "#041f22",
+                      "inverse-on-surface": "#f2f0eb",
+                      "inverse-surface": "#30302c",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#bfc8ca",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#ffdbc7",
+                      "on-error": "#ffffff",
+                      "tertiary": "#8d4d27",
+                      "primary-fixed-dim": "#8ad2de",
+                      "surface-bright": "#f9f8f5",
+                      "outline": "#6f797a",
+                      "error": "#ba1a1a",
+                      "secondary-fixed": "#cce8ec",
+                      "inverse-primary": "#8ad2de",
+                      "surface-container": "#eeede8",
+                      "surface-container-highest": "#e2e1dd",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#e8e7e3",
+                      "error-container": "#ffdad6",
+                      "on-background": "#28251d",
+                      "on-surface-variant": "#3f484a",
+                      "tertiary-container": "#ffdbc7",
+                      "tertiary-fixed-dim": "#ffb688",
+                      "secondary": "#4a6366",
+                      "surface-tint": "#01696f",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed-variant": "#6f3713",
+                      "primary": "#01696f",
+                      "on-tertiary-fixed": "#331200",
+                      "surface-dim": "#dbdad5",
+                      "on-secondary-fixed-variant": "#324b4e",
+                      "surface-container-low": "#f4f2ee",
+                      "on-error-container": "#410002",
+                      "secondary-container": "#cce8ec",
+                      "on-primary-container": "#002022"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Manrope"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "label": [
+                              "Inter"
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+          .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+          }
+          .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+          }
+          /* Swiss-inspired crispness */
+          * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-6 h-16 border-none bg-[#eeede8]/70 dark:bg-[#1a1c1e]/70 backdrop-blur-xl">
+<button aria-label="Menu" class="p-2 -ml-2 text-[#01696f] dark:text-[#26a69a] active:scale-95 duration-200">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+<h1 class="font-['Manrope'] font-black text-[#01696f] dark:text-[#26a69a] tracking-tight text-sm uppercase">STADIUM EXPLORER</h1>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="close up portrait of a young woman with natural light and soft background blur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEhrj_iuhlpqBx9UVQVLatggLqxWCs2FwFragX0MFTikYBnY_WWfZjgbYbhNXl1U20ltJE5GLSESzRDV5WQdZikr9wuI7K454Eyx2eKVYJlLXzf7Oqp-Pr_Rd949ADK6S36zE36PvaB5U29ioZ-1-E3bTodMfloNdkP0GyRcJ6gU4Nqqff3gnS4XMX2wcPdQ6dEHVwAp2Y8brROLDUAlmcPS6qj8WpfmqBw8aZSLMJXKz6NHo2ectksY9Wbn5spKPUHYzRZFoGUSth"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-16 px-4 pt-4 md:px-8 max-w-5xl mx-auto w-full">
+<!-- Search and Filter Section -->
+<section class="mb-8 space-y-4">
+<!-- Search Bar -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-lowest text-on-surface border border-outline-variant/30 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body text-sm placeholder:text-on-surface-variant/70" placeholder="Search facilities, food, or stands..." type="text"/>
+</div>
+<!-- Filter Chips (Scrollable) -->
+<div class="flex overflow-x-auto gap-2 pb-2 -mx-4 px-4 md:mx-0 md:px-0 hide-scrollbar scroll-smooth">
+<button class="whitespace-nowrap px-4 py-2 rounded-xl text-xs font-label font-bold uppercase tracking-widest bg-primary text-on-primary shadow-sm active:scale-95 transition-transform">
+                    All
+                </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-xl text-xs font-label font-bold uppercase tracking-widest bg-surface-container-lowest text-on-surface border border-outline-variant/30 shadow-sm active:scale-95 transition-transform">
+                    Food
+                </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-xl text-xs font-label font-bold uppercase tracking-widest bg-surface-container-lowest text-on-surface border border-outline-variant/30 shadow-sm active:scale-95 transition-transform">
+                    Restrooms
+                </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-xl text-xs font-label font-bold uppercase tracking-widest bg-surface-container-lowest text-on-surface border border-outline-variant/30 shadow-sm active:scale-95 transition-transform">
+                    Merch
+                </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-xl text-xs font-label font-bold uppercase tracking-widest bg-surface-container-lowest text-on-surface border border-outline-variant/30 shadow-sm active:scale-95 transition-transform flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Fastest
+                </button>
+</div>
+</section>
+<!-- Recommended / Spotlight Section -->
+<section class="mb-10">
+<h2 class="font-headline font-extrabold text-[20px] tracking-tight text-on-surface mb-4">Recommended for You</h2>
+<div class="bg-surface-container-lowest rounded-[0.5rem] p-5 shadow-sm border border-outline-variant/30 flex flex-col md:flex-row gap-5 relative overflow-hidden">
+<!-- Live Banner Overlay -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-fixed-dim opacity-80"></div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container rounded-lg text-[10px] font-label font-bold uppercase tracking-widest flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">local_fire_department</span> Trending
+                            </span>
+<span class="text-xs font-body text-on-surface-variant font-medium">Sec 114 • 2 min walk</span>
+</div>
+<h3 class="font-headline font-bold text-[24px] tracking-tight text-on-surface mb-1">Burger Bastion</h3>
+<p class="font-body text-sm text-on-surface-variant mb-4">Classic smashburgers and craft fries. Shortest line in the North Concourse.</p>
+</div>
+<div class="flex items-end justify-between mt-4">
+<div class="flex flex-col">
+<span class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1">Wait Time</span>
+<div class="flex items-baseline gap-1 text-primary">
+<span class="font-headline font-black text-3xl tabular-nums tracking-tighter">5</span>
+<span class="font-body font-bold text-sm">min</span>
+</div>
+</div>
+<button class="bg-primary hover:bg-surface-tint text-on-primary font-body font-bold text-sm px-6 py-3 rounded-xl shadow-sm transition-colors active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined fill-icon text-[18px]">directions_walk</span>
+                            Navigate
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Facilities List (Bento-style Grid) -->
+<section>
+<h2 class="font-headline font-extrabold text-[20px] tracking-tight text-on-surface mb-4">Nearby Facilities</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Facility Card 1 -->
+<div class="bg-surface-container-lowest rounded-[0.5rem] p-4 shadow-sm border border-outline-variant/30 flex gap-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex-1 flex flex-col justify-between pl-2">
+<div>
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline font-bold text-[18px] tracking-tight text-on-surface">Taco Terrace</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">restaurant</span>
+</div>
+<span class="text-xs font-body text-on-surface-variant block mb-3">Sec 118 • 4 min walk</span>
+</div>
+<div class="flex items-center justify-between border-t border-surface-container pt-3 mt-auto">
+<div class="flex items-baseline gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary">schedule</span>
+<span class="font-headline font-bold text-lg tabular-nums tracking-tighter">12</span>
+<span class="font-body font-medium text-xs text-on-surface-variant">min</span>
+</div>
+<button class="text-primary font-body font-bold text-sm px-3 py-1.5 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                                Join Queue
+                            </button>
+</div>
+</div>
+</div>
+<!-- Facility Card 2 (Restroom - Warning state) -->
+<div class="bg-surface-container-lowest rounded-[0.5rem] p-4 shadow-sm border border-outline-variant/30 flex gap-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex-1 flex flex-col justify-between pl-2">
+<div>
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline font-bold text-[18px] tracking-tight text-on-surface">North Concourse Restrooms</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">wc</span>
+</div>
+<span class="text-xs font-body text-on-surface-variant block mb-3">Sec 120 • 1 min walk</span>
+</div>
+<div class="flex items-center justify-between border-t border-surface-container pt-3 mt-auto">
+<div class="flex items-baseline gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[14px] text-tertiary">schedule</span>
+<span class="font-headline font-bold text-lg tabular-nums tracking-tighter">18</span>
+<span class="font-body font-medium text-xs text-on-surface-variant">min</span>
+</div>
+<button class="text-on-surface font-body font-bold text-sm px-3 py-1.5 rounded-lg border border-outline-variant/50 hover:bg-surface-container transition-colors">
+                                Navigate
+                            </button>
+</div>
+</div>
+</div>
+<!-- Facility Card 3 -->
+<div class="bg-surface-container-lowest rounded-[0.5rem] p-4 shadow-sm border border-outline-variant/30 flex gap-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex-1 flex flex-col justify-between pl-2">
+<div>
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline font-bold text-[18px] tracking-tight text-on-surface">Team Store Express</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">shopping_bag</span>
+</div>
+<span class="text-xs font-body text-on-surface-variant block mb-3">Main Plaza • 6 min walk</span>
+</div>
+<div class="flex items-center justify-between border-t border-surface-container pt-3 mt-auto">
+<div class="flex items-baseline gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary">schedule</span>
+<span class="font-headline font-bold text-lg tabular-nums tracking-tighter">8</span>
+<span class="font-body font-medium text-xs text-on-surface-variant">min</span>
+</div>
+<button class="text-primary font-body font-bold text-sm px-3 py-1.5 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                                Join Queue
+                            </button>
+</div>
+</div>
+</div>
+<!-- Facility Card 4 -->
+<div class="bg-surface-container-lowest rounded-[0.5rem] p-4 shadow-sm border border-outline-variant/30 flex gap-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex-1 flex flex-col justify-between pl-2">
+<div>
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline font-bold text-[18px] tracking-tight text-on-surface">Pizza Pavilion</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">local_pizza</span>
+</div>
+<span class="text-xs font-body text-on-surface-variant block mb-3">Sec 112 • 3 min walk</span>
+</div>
+<div class="flex items-center justify-between border-t border-surface-container pt-3 mt-auto">
+<div class="flex items-baseline gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary">schedule</span>
+<span class="font-headline font-bold text-lg tabular-nums tracking-tighter">15</span>
+<span class="font-body font-medium text-xs text-on-surface-variant">min</span>
+</div>
+<button class="text-primary font-body font-bold text-sm px-3 py-1.5 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                                Join Queue
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Spacer for Bottom Nav -->
+<div class="h-8 md:h-0"></div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 md:hidden border-none shadow-[0_-4px_12px_0_rgba(0,0,0,0.05)] bg-[#f4f2ee]/70 dark:bg-[#1a1c1e]/70 backdrop-blur-xl">
+<a class="flex flex-col items-center justify-center text-[#28251d] dark:text-[#eeede8] opacity-50 hover:opacity-100 transition-opacity active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-['Inter'] font-extrabold text-[10px] tracking-widest uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#01696f]/10 text-[#01696f] dark:text-[#26a69a] rounded-xl px-4 py-1 hover:opacity-100 transition-opacity active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1 fill-icon">layers_clear</span>
+<span class="font-['Inter'] font-extrabold text-[10px] tracking-widest uppercase text-[#01696f] font-bold">Queues</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#28251d] dark:text-[#eeede8] opacity-50 hover:opacity-100 transition-opacity active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1">explore</span>
+<span class="font-['Inter'] font-extrabold text-[10px] tracking-widest uppercase">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#28251d] dark:text-[#eeede8] opacity-50 hover:opacity-100 transition-opacity active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1">account_balance_wallet</span>
+<span class="font-['Inter'] font-extrabold text-[10px] tracking-widest uppercase">Wallet</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#28251d] dark:text-[#eeede8] opacity-50 hover:opacity-100 transition-opacity active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-['Inter'] font-extrabold text-[10px] tracking-widest uppercase">Account</span>
+</a>
+</nav>
+</body></html>

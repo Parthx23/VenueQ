@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VenueFlow AI - Attendee Mobile Queues</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c4c7c8",
+                    "on-tertiary-fixed": "#311300",
+                    "surface-dim": "#dbdad5",
+                    "on-primary": "#ffffff",
+                    "outline": "#6f797a",
+                    "surface-container-low": "#f4f3ee",
+                    "on-tertiary-container": "#341500",
+                    "on-primary-fixed": "#001f24",
+                    "surface-container-highest": "#e3e2dd",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#4a6267",
+                    "tertiary-fixed": "#ffdbc7",
+                    "surface-tint": "#01696f",
+                    "surface-variant": "#e0e3e3",
+                    "primary-fixed": "#a6eefa",
+                    "on-secondary": "#ffffff",
+                    "primary": "#01696f",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#8ad2de",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#3f484a",
+                    "secondary-container": "#cce8ec",
+                    "on-secondary-fixed": "#031f23",
+                    "on-error-container": "#410002",
+                    "inverse-on-surface": "#f0efea",
+                    "tertiary": "#8f4c28",
+                    "inverse-surface": "#2d3132",
+                    "on-secondary-fixed-variant": "#314b4f",
+                    "on-background": "#28251d",
+                    "on-primary-fixed-variant": "#004f57",
+                    "tertiary-fixed-dim": "#ffb688",
+                    "on-primary-container": "#002f35",
+                    "surface": "#f9f8f5",
+                    "on-surface": "#28251d",
+                    "secondary-fixed-dim": "#b0cbd0",
+                    "inverse-primary": "#8ad2de",
+                    "on-secondary-container": "#051f23",
+                    "primary-container": "#c1f6ff",
+                    "surface-bright": "#f9f8f5",
+                    "surface-container-high": "#e9e8e3",
+                    "surface-container": "#efeee9",
+                    "background": "#f7f6f2",
+                    "tertiary-container": "#ffdcc6",
+                    "secondary-fixed": "#cce8ec",
+                    "on-tertiary-fixed-variant": "#6c3a14"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": [
+                            "Manrope"
+                    ],
+                    "body": [
+                            "Inter"
+                    ],
+                    "label": [
+                            "Inter"
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            font-family: theme('fontFamily.body');
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen lg:flex-row antialiased selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar (Web & Mobile Header) -->
+<header class="bg-surface docked full-width top-0 z-40 flat no-line flex justify-between items-center px-6 h-16 w-full lg:hidden">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-lg font-black text-primary tracking-tighter" data-icon="stadium">stadium</span>
+<span class="font-manrope tracking-tight font-bold text-primary">VenueFlow AI</span>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="notifications" class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="settings" class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Admin Avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="portrait of a professional looking individual serving as admin avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeZMsyVUJETmmVRQaOR_TeIIfqDXvoytxNRN1zYzEjmeS0KQa19zoIxOk1HnT_1ETbS-u8emw2uEf_q8U8MkGcU-i5YgoCXVzEOcVLl6UgEJj0AuL9K06aXzwTQ6QrJHJ_sgnj09ROOEJXKc3zFZlCmbszFG9vcpUy99QUnlnCrHAB-i8ULR5mUsWPuaYMrZPpVkRnyT30b3FxpOIVQxZjb5ymqmlpFzoXIOJbwDDnu5eEa1XIf4Yrw8eRaEYQsTs-23dxE35XgZV8"/>
+</div>
+</header>
+<!-- SideNavBar (Web Only) -->
+<nav class="hidden lg:flex flex-col py-6 px-4 gap-2 bg-surface docked left-0 h-screen w-64 flat no-line border-r border-outline-variant">
+<div class="flex items-center gap-3 mb-8 px-2">
+<span class="material-symbols-outlined text-2xl text-primary" data-icon="stadium">stadium</span>
+<div>
+<h1 class="font-manrope font-bold text-xl text-primary tracking-tighter">VenueFlow AI</h1>
+<p class="font-inter text-xs text-on-surface-variant uppercase tracking-widest">Mission Control</p>
+</div>
+</div>
+<div class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary font-inter text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Overview
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary font-inter text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Crowd Flow
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded bg-surface-container-high text-primary font-bold font-inter text-sm transition-transform active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined" data-icon="hourglass_empty" style="font-variation-settings: 'FILL' 1;">hourglass_empty</span>
+                Queues
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary font-inter text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+                Staff Coordination
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary font-inter text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+                Incidents
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary font-inter text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+                Venue Map
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary font-inter text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Analytics
+            </a>
+</div>
+<button class="mt-auto bg-gradient-to-r from-primary to-primary-container text-on-primary font-inter font-bold text-sm py-3 px-4 rounded transition-transform hover:brightness-110 active:scale-95 shadow-[0_4px_14px_rgba(1,105,111,0.2)]">
+            Generate Report
+        </button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col min-h-0 bg-surface">
+<!-- Header & Filters -->
+<div class="bg-surface-container-low px-4 lg:px-8 py-6 flex flex-col gap-6 shrink-0">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline text-[2.25rem] font-bold tracking-tight text-on-surface leading-none">Nearby Queues</h2>
+<p class="font-body text-sm text-on-surface-variant mt-2">Section 114 • Concourse A</p>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="shrink-0 px-4 py-2 bg-primary/20 text-primary border border-primary/30 rounded font-label text-xs uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[1rem]" data-icon="tune">tune</span>
+                    All Types
+                </button>
+<button class="shrink-0 px-4 py-2 bg-surface-container text-on-surface-variant hover:bg-surface-bright rounded font-label text-xs uppercase tracking-widest flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[1rem]" data-icon="restaurant">restaurant</span>
+                    Food
+                </button>
+<button class="shrink-0 px-4 py-2 bg-surface-container text-on-surface-variant hover:bg-surface-bright rounded font-label text-xs uppercase tracking-widest flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[1rem]" data-icon="wc">wc</span>
+                    Restrooms
+                </button>
+<button class="shrink-0 px-4 py-2 bg-surface-container text-on-surface-variant hover:bg-surface-bright rounded font-label text-xs uppercase tracking-widest flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[1rem]" data-icon="shopping_bag">shopping_bag</span>
+                    Merch
+                </button>
+</div>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-4 lg:p-8 space-y-8 pb-32 lg:pb-8">
+<!-- Recommendation Bento -->
+<section class="space-y-4">
+<h3 class="font-label text-xs text-on-surface-variant uppercase tracking-[0.05em] font-semibold">AI Recommended</h3>
+<div class="bg-surface-container-low rounded p-6 grid grid-cols-1 md:grid-cols-3 gap-6 relative overflow-hidden">
+<!-- Accent Gradient -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
+<div class="md:col-span-2 flex flex-col justify-between z-10">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-1 bg-primary/10 text-primary font-label text-[10px] uppercase tracking-widest rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="bolt">bolt</span>
+                                    Fastest Option
+                                </span>
+<span class="font-label text-xs text-on-surface-variant">2 min walk</span>
+</div>
+<h4 class="font-headline text-2xl font-bold text-on-surface mb-1">Classic Burger Grill</h4>
+<p class="font-body text-sm text-on-surface-variant">Concourse A • Near Sec 116</p>
+</div>
+<div class="mt-6 flex items-center gap-4">
+<div class="bg-surface-container p-3 rounded flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="timer">timer</span>
+<div>
+<div class="font-headline text-xl font-bold text-on-surface leading-tight">5 min</div>
+<div class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Est Wait</div>
+</div>
+</div>
+<div class="bg-surface-container p-3 rounded flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="group">group</span>
+<div>
+<div class="font-headline text-xl font-bold text-on-surface leading-tight">Short</div>
+<div class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Queue Length</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col justify-end z-10 gap-3">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-inter font-bold text-sm py-4 px-4 rounded transition-transform hover:brightness-110 active:scale-95 shadow-[0_10px_20px_rgba(1,105,111,0.15)] flex justify-center items-center gap-2">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                            Join Virtual Queue
+                        </button>
+<button class="w-full bg-surface-container text-primary font-inter font-bold text-sm py-4 px-4 rounded transition-colors hover:bg-surface-bright flex justify-center items-center gap-2">
+<span class="material-symbols-outlined" data-icon="directions">directions</span>
+                            Navigate
+                        </button>
+</div>
+</div>
+</section>
+<!-- Other Options List -->
+<section class="space-y-4">
+<h3 class="font-label text-xs text-on-surface-variant uppercase tracking-[0.05em] font-semibold">Other Nearby Options</h3>
+<div class="space-y-4">
+<!-- Option Item 1 -->
+<div class="bg-surface-container-low rounded p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="local_pizza">local_pizza</span>
+</div>
+<div>
+<h4 class="font-body font-semibold text-base text-on-surface">Slice Pizzeria</h4>
+<p class="font-body text-xs text-on-surface-variant">Concourse A • Sec 112 • 4 min walk</p>
+</div>
+</div>
+<div class="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-end border-t border-outline-variant/15 sm:border-none pt-4 sm:pt-0">
+<div class="text-right">
+<div class="font-headline font-bold text-lg text-tertiary-container">12 min</div>
+<div class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Wait</div>
+</div>
+<button class="bg-surface-container text-primary font-inter font-medium text-xs py-2 px-4 rounded hover:bg-surface-bright transition-colors">
+                                Join Queue
+                            </button>
+</div>
+</div>
+<!-- Option Item 2 -->
+<div class="bg-surface-container-low rounded p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="wc">wc</span>
+</div>
+<div>
+<h4 class="font-body font-semibold text-base text-on-surface">Restrooms (Men/Women)</h4>
+<p class="font-body text-xs text-on-surface-variant">Concourse A • Sec 115 • 1 min walk</p>
+</div>
+</div>
+<div class="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-end border-t border-outline-variant/15 sm:border-none pt-4 sm:pt-0">
+<div class="text-right">
+<div class="font-headline font-bold text-lg text-primary">2 min</div>
+<div class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Wait</div>
+</div>
+<button class="bg-surface-container text-on-surface-variant font-inter font-medium text-xs py-2 px-4 rounded hover:bg-surface-bright transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="directions">directions</span>
+                                Go
+                            </button>
+</div>
+</div>
+<!-- Option Item 3 -->
+<div class="bg-surface-container-low rounded p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 opacity-70">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<div>
+<h4 class="font-body font-semibold text-base text-on-surface">Main Team Store</h4>
+<p class="font-body text-xs text-on-surface-variant">Main Concourse • Sec 101 • 8 min walk</p>
+</div>
+</div>
+<div class="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-end border-t border-outline-variant/15 sm:border-none pt-4 sm:pt-0">
+<div class="text-right">
+<div class="font-headline font-bold text-lg text-error">25 min</div>
+<div class="font-label text-[10px] text-error/70 uppercase tracking-widest">Heavy Wait</div>
+</div>
+<button class="bg-surface-container text-primary font-inter font-medium text-xs py-2 px-4 rounded hover:bg-surface-bright transition-colors">
+                                Join Queue
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden flex justify-around items-center px-4 pt-2 pb-safe w-full bg-surface/80 backdrop-blur-xl fixed bottom-0 z-50 rounded-t-lg border-t border-outline-variant/30 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="group">group</span>
+<span class="font-inter text-[10px] uppercase tracking-widest">Flow</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary/10 text-primary rounded-xl p-2 scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="hourglass_empty" style="font-variation-settings: 'FILL' 1;">hourglass_empty</span>
+<span class="font-inter text-[10px] uppercase tracking-widest">Queues</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="map">map</span>
+<span class="font-inter text-[10px] uppercase tracking-widest">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="report_problem">report_problem</span>
+<span class="font-inter text-[10px] uppercase tracking-widest">Incidents</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="menu">menu</span>
+<span class="font-inter text-[10px] uppercase tracking-widest">More</span>
+</a>
+</nav>
+</body></html>

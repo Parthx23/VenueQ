@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stadium Pro - Staff Coordination</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {},
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "safe": "env(safe-area-inset-bottom)"
+                    },
+                    fontFamily: {
+                        "headline": ["Public Sans", "sans-serif"],
+                        "body": ["Public Sans", "sans-serif"],
+                        "label": ["Public Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-zinc-50 text-zinc-900 pb-24">
+<!-- TopAppBar -->
+<header class="sticky top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 backdrop-blur-md bg-white/95 border-b border-zinc-200">
+<button class="hover:bg-zinc-50 transition-colors active:scale-98 transition-all p-2 -ml-2 rounded-full">
+<span class="material-symbols-outlined text-zinc-900">grid_view</span>
+</button>
+<h1 class="text-lg font-black tracking-tighter uppercase text-zinc-900">STADIUM PRO</h1>
+<button class="hover:bg-zinc-50 transition-colors active:scale-98 transition-all rounded-full overflow-hidden w-8 h-8 flex-shrink-0">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="professional headshot of a stadium manager in a white collared shirt against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAcOqf5EZSTjjZvNwFNHHqo-VQUEljQyNnPxiTU3bw8RQsOH6aHqA7RqGE6-OkynO-mBqCnVyhsibws9UYglXtMjDtDOlTYkUU-vAsWcHuWSomc9wUb0iJA2UVwwGFhwcLk6ALoDYVcttVraqYxSq3fX1Mk0OJnS3FGE6MJSAX1S7OiA75lkxl9DFnhDBVi4oe60yfQMyCa4CRpbFrBN4K28f3qq0S5YvfNPLDzMIPz_hRiAbnA9sG213H_a8dxEAQm5gMs5IQOoX-"/>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex flex-col gap-4">
+<!-- Map View -->
+<section class="relative h-64 w-full bg-zinc-200">
+<img class="w-full h-full object-cover" data-alt="high contrast digital map of a large sports stadium complex with surrounding parking lots" data-location="Stadium Map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6rMOPcvQ2QJgK5-g-VxtqlHWJcK48ZNRkswghVVzrj_A4N_MXMGXfAdp2wBRLM7wN98l5s41Q9ZAugEPI8O8fmhzkffYohjORXZX9HJElVeFMr-eiX4E-r6z0Ab3dROqAjojNabMj315x9GxuX171wV7yy2PENDyDah9lKGhlAXYFFqAT5tRbL3xoV8uQ_ECiVF2KsqARIR-FdX4BwFR-qQniZJWzzW8bWjbEXZqWoIhUIbQ4zznT96kFURDyoYff47moIVPu9fTO"/>
+<!-- Overlay Gradients -->
+<div class="absolute inset-0 bg-gradient-to-t from-zinc-50/90 via-transparent to-transparent"></div>
+<!-- Map Controls -->
+<div class="absolute right-4 top-4 flex flex-col gap-2">
+<button class="bg-white/90 backdrop-blur-sm p-2 rounded-lg shadow-sm active:scale-98">
+<span class="material-symbols-outlined text-zinc-700">layers</span>
+</button>
+<button class="bg-white/90 backdrop-blur-sm p-2 rounded-lg shadow-sm active:scale-98">
+<span class="material-symbols-outlined text-zinc-700">my_location</span>
+</button>
+</div>
+<!-- Staff Pins -->
+<div class="absolute top-1/4 left-1/3 flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+<div class="bg-teal-600 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-md mb-1">2</div>
+<div class="w-4 h-4 bg-teal-600 rounded-full border-2 border-white shadow-sm"></div>
+</div>
+<div class="absolute top-1/2 left-2/3 flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+<div class="bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-md mb-1">4</div>
+<div class="w-4 h-4 bg-amber-500 rounded-full border-2 border-white shadow-sm"></div>
+</div>
+<div class="absolute bottom-1/4 left-1/2 flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+<div class="bg-rose-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-md mb-1 animate-pulse">!</div>
+<div class="w-4 h-4 bg-rose-500 rounded-full border-2 border-white shadow-sm"></div>
+</div>
+<!-- Zone Status Legend -->
+<div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-2 rounded-xl shadow-sm border border-zinc-100 flex gap-4 text-xs font-medium">
+<div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-teal-500"></div> Clear</div>
+<div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-amber-500"></div> Busy</div>
+<div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-rose-500"></div> Alert</div>
+</div>
+</section>
+<!-- Dispatch Actions -->
+<section class="px-4 mt-2">
+<button class="w-full bg-teal-600 text-white font-bold py-4 rounded-xl shadow-md hover:bg-teal-700 active:bg-teal-800 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+                Dispatch Staff
+            </button>
+</section>
+<!-- Active Dispatches -->
+<section class="px-4 mt-4 pb-6">
+<div class="flex justify-between items-end mb-4">
+<h2 class="text-xl font-bold tracking-tight">Active Dispatches</h2>
+<span class="text-sm font-medium text-teal-600">3 Active</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Dispatch Card 1 - High Priority -->
+<div class="bg-white rounded-xl p-4 shadow-sm border border-rose-100 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-rose-500"></div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="bg-rose-100 text-rose-700 text-xs font-bold px-2 py-0.5 rounded-md">URGENT</span>
+<span class="text-sm text-zinc-500 font-medium">Gate 4</span>
+</div>
+<span class="text-xs text-zinc-400 font-medium">2m ago</span>
+</div>
+<h3 class="font-bold text-zinc-900 mb-1">Crowd Control Needed</h3>
+<p class="text-sm text-zinc-600 mb-3">Backup requested for ticket scanning backlog at main entrance.</p>
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-zinc-100">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="portrait of a male security guard looking focused" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUSBqwIO8pwvmXJhnYI9nqmLiliozfPVran9HG3iy0f-9ztnH147483iATL9bBrfm82FEnvd6VxOXH7Cox98BlQSJCVVn8M3P7BBLjUjvq0yUFQ8BG45UF9k8XVRnPKTdy952YYYpBeO2u6P7y42ETayDsIDkvu8p4-qN8HgRPwdbED9B70FtWdDBSufB3YG4DNbpsIsFyAW5DB3nG6QVW1NgYtvuzoFTmIPvrzFI5cBaoWvuTEXcVgNpFYL5F8Br8w4JyVdB_AzuC"/>
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="portrait of a female event staff member smiling slightly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxWjdP6FY1zhIm-n3G_Ag3OSRpEweZbiMCCdaaOVqIxUDs-VxJLU-zwmSZ1fd9naVhXBrbFU7PE1TVG5PVaCpyyHRAM7sByujEW72EvC4QzAs6zkSB7veY4OJ1D9mm4FJlJ1GP8Iv21dNU2NI_CRUyQS5B0CPMSOX883PpvIsmwFizcn_RmK2TyaX4XnJX4IsyHLigNYZjQPPDulcq5EkrByi7yZejhwIbs5qRxO36Eyk_oGSRinRl3PVVKvdZ7mBYKCN920ahbb8a"/>
+</div>
+<span class="text-xs font-medium text-zinc-500">2 En Route</span>
+</div>
+<button class="text-sm font-bold text-teal-600 active:text-teal-800">Update</button>
+</div>
+</div>
+<!-- Dispatch Card 2 - Medium Priority -->
+<div class="bg-white rounded-xl p-4 shadow-sm border border-amber-100 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded-md">MAINTENANCE</span>
+<span class="text-sm text-zinc-500 font-medium">Section 112</span>
+</div>
+<span class="text-xs text-zinc-400 font-medium">15m ago</span>
+</div>
+<h3 class="font-bold text-zinc-900 mb-1">Spill Cleanup</h3>
+<p class="text-sm text-zinc-600 mb-3">Beverage spill on steps between rows F and G.</p>
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-zinc-100">
+<div class="flex items-center gap-2">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="portrait of a male janitorial staff member" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJIiOC38ja3O0g3xGL3mbF4IwBBCeACUeGm7UBIAl8scCgT4xRO5EFnQC7xRv8ZI-VKuv5pkeHYJpID6mzvnSpKA4wUCTR3Ji7aLYo5GwgN9s_8faZSf0j-WnBSlKxSm_EtxlBltUi9Va3ouelp7tbrw4u2vMsJDGawgIetaPB97erxtYACoLv6jq2Tn3YzzZFyJktMZq8ayMvkA320fqZ7K7Mtex9xaYjbANnpoLK1HFFoO9UBEgLGzcvGaOQMdK2mHuXL6Hwvlsi"/>
+<span class="text-xs font-medium text-amber-600">Arrived</span>
+</div>
+<button class="text-sm font-bold text-teal-600 active:text-teal-800">Update</button>
+</div>
+</div>
+<!-- Dispatch Card 3 - Low Priority -->
+<div class="bg-white rounded-xl p-4 shadow-sm border border-zinc-200 relative overflow-hidden opacity-75">
+<div class="absolute top-0 left-0 w-1 h-full bg-zinc-400"></div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="bg-zinc-100 text-zinc-700 text-xs font-bold px-2 py-0.5 rounded-md">RESTOCK</span>
+<span class="text-sm text-zinc-500 font-medium">Concession A</span>
+</div>
+<span class="text-xs text-zinc-400 font-medium">32m ago</span>
+</div>
+<h3 class="font-bold text-zinc-900 mb-1">Ice Delivery</h3>
+<p class="text-sm text-zinc-600 mb-3">Standard mid-game ice restock for main concession.</p>
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-zinc-100">
+<div class="flex items-center gap-2">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="portrait of a female logistics staff member" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH_effsstN6JOXQbgKfBqTHHJXmh-WoNt1plh-jFcodPY5yXreDY8VhSVzThpiaVS51WMGFm01WED1dIdU4RZOqWJPIvsoLb7T7-OlfPVQlIcL4fE1SNeStRs2K3CkHvBQeRCki5Lv7MdQBPGJjuSXA_4KlD26n1rGJXmmaVW11BIe1MF-eX7yimNWEDnhsJf1PoLtMmKKEIqYq545LpxqjwbQzcLEuRb8CM0uLzQbvawP1KxLpSGj41W6FZfcS1GNsavIrdPwY6mF"/>
+<span class="text-xs font-medium text-zinc-500">In Progress</span>
+</div>
+<button class="text-sm font-bold text-teal-600 active:text-teal-800">Update</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-safe bg-white/98 backdrop-blur-md h-20 border-t border-zinc-200">
+<button class="flex flex-col items-center justify-center text-zinc-400 pt-2.5 transition-all duration-200 ease-in-out hover:text-zinc-900 w-16">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-sans text-[10px] font-bold uppercase tracking-widest">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-teal-600 border-t-2 border-teal-600 pt-2 transition-all duration-200 ease-in-out hover:text-zinc-900 w-16">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-sans text-[10px] font-bold uppercase tracking-widest text-teal-600">Map</span>
+</button>
+<button class="flex flex-col items-center justify-center text-zinc-400 pt-2.5 transition-all duration-200 ease-in-out hover:text-zinc-900 w-16">
+<span class="material-symbols-outlined mb-1">format_list_bulleted</span>
+<span class="font-sans text-[10px] font-bold uppercase tracking-widest">Queues</span>
+</button>
+<button class="flex flex-col items-center justify-center text-zinc-400 pt-2.5 transition-all duration-200 ease-in-out hover:text-zinc-900 w-16">
+<span class="material-symbols-outlined mb-1">notifications</span>
+<span class="font-sans text-[10px] font-bold uppercase tracking-widest">Alerts</span>
+</button>
+<button class="flex flex-col items-center justify-center text-zinc-400 pt-2.5 transition-all duration-200 ease-in-out hover:text-zinc-900 w-16">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-sans text-[10px] font-bold uppercase tracking-widest">Profile</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VenueFlow AI - Queue Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c5c7ca",
+                    "on-tertiary-fixed": "#311300",
+                    "surface-dim": "#dad9d3",
+                    "on-primary": "#ffffff",
+                    "outline": "#75777a",
+                    "surface-container-low": "#f4f3ed",
+                    "on-tertiary-container": "#311300",
+                    "on-primary-fixed": "#002022",
+                    "surface-container-highest": "#e3e1db",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#4a6266",
+                    "tertiary-fixed": "#ffdbc7",
+                    "surface-tint": "#01696f",
+                    "surface-variant": "#e3e1db",
+                    "primary-fixed": "#9ae0e8",
+                    "on-secondary": "#ffffff",
+                    "primary": "#01696f",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#7fdce3",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#59574f",
+                    "secondary-container": "#cce8ec",
+                    "on-secondary-fixed": "#051f23",
+                    "on-error-container": "#410002",
+                    "inverse-on-surface": "#f5f0ea",
+                    "tertiary": "#8c4e2d",
+                    "inverse-surface": "#32302a",
+                    "on-secondary-fixed-variant": "#324a4e",
+                    "on-background": "#1c1b17",
+                    "on-primary-fixed-variant": "#004f54",
+                    "tertiary-fixed-dim": "#ffb688",
+                    "on-primary-container": "#002022",
+                    "surface": "#f9f8f5",
+                    "on-surface": "#28251d",
+                    "secondary-fixed-dim": "#b0cbd0",
+                    "inverse-primary": "#7fdce3",
+                    "on-secondary-container": "#051f23",
+                    "primary-container": "#9be3e9",
+                    "surface-bright": "#ffffff",
+                    "surface-container-high": "#e9e7e1",
+                    "surface-container": "#efede7",
+                    "background": "#f7f6f2",
+                    "tertiary-container": "#ffdbcb",
+                    "secondary-fixed": "#cce8ec",
+                    "on-tertiary-fixed-variant": "#6c3a14"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope", "sans-serif"],
+                    "body": ["Inter", "sans-serif"],
+                    "label": ["Inter", "sans-serif"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      body {
+        background-color: theme('colors.background');
+        color: theme('colors.on-surface');
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .material-symbols-outlined.fill {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+</head>
+<body class="font-body antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col py-6 px-4 gap-2 bg-surface docked left-0 h-screen w-64 flat no-line z-40 border-r border-outline-variant flex-shrink-0">
+<div class="mb-8 px-2">
+<h1 class="font-manrope font-bold text-xl text-primary tracking-tighter">VenueFlow AI</h1>
+<p class="font-inter text-sm text-on-surface-variant font-medium">Mission Control</p>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded font-inter text-sm font-medium text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+                Overview
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded font-inter text-sm font-medium text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">group</span>
+                Crowd Flow
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded font-inter text-sm bg-surface-container-high text-primary font-bold Active: scale-[0.99] transition-transform" href="#">
+<span class="material-symbols-outlined text-lg fill">hourglass_empty</span>
+                Queues
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded font-inter text-sm font-medium text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">badge</span>
+                Staff Coordination
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded font-inter text-sm font-medium text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">report_problem</span>
+                Incidents
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded font-inter text-sm font-medium text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">map</span>
+                Venue Map
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded font-inter text-sm font-medium text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">analytics</span>
+                Analytics
+            </a>
+</div>
+<button class="mt-auto w-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-inter font-medium text-sm py-2 px-4 rounded DEFAULT transition-transform active:scale-95">
+            Generate Report
+        </button>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden bg-background relative">
+<!-- TopAppBar (Mobile & Desktop Header) -->
+<header class="flex justify-between items-center px-6 h-16 w-full bg-surface docked full-width top-0 z-40 flat no-line border-b border-outline-variant md:hidden">
+<h1 class="text-lg font-black text-primary tracking-tighter font-manrope">VenueFlow AI</h1>
+<div class="flex gap-4 items-center">
+<button class="text-primary hover:bg-surface-container-high transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<img alt="Admin Avatar" class="w-8 h-8 rounded-full border border-outline-variant/30" data-alt="Close up portrait of a professional looking individual, warm lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaY9V38-59T-dPAYyQBeT9XCBDD4YjcXi1oVtT8y0Ve_STyiJpO_1zRuSuVcnfMlC_gDRkx7hDyuUInk1dI9KH_6w7PpOrv4ZftsmYBSSxytPMlISICzouoCaIpt-52-_4iU6m4EOF8dmrZnC3N5IYp_95PLdadvtFLEi5MFmBcTdrCDIRhJOayFyEkmEXvD-QLOwPJRghvbrPEkbqXolGBaMt_U_tvTTzOSsN5h4WvVhwpS_2pdBcWqGzNCPL6_E5zsHfetL_TVB6"/>
+</div>
+</header>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto p-4 md:p-8 pb-24 md:pb-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+<div>
+<h2 class="font-headline text-3xl md:text-4xl text-on-surface font-bold tracking-tight mb-1">Queue Intelligence</h2>
+<p class="font-body text-on-surface-variant text-sm">Real-time predictive wait analysis across 42 active zones.</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface text-on-surface px-4 py-2 rounded text-sm font-medium hover:bg-surface-container-low transition-colors flex items-center gap-2 border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filter
+                    </button>
+<button class="bg-surface text-on-surface px-4 py-2 rounded text-sm font-medium hover:bg-surface-container-low transition-colors flex items-center gap-2 border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+                        Live Sync
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Critical Queues (Leaderboard) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Leaderboard Card -->
+<div class="bg-surface rounded-lg p-5 flex flex-col h-full border border-outline-variant shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-body text-base font-semibold text-on-surface">Critical Queues</h3>
+<span class="font-label text-[10px] uppercase tracking-widest text-error bg-error-container/40 px-2 py-1 rounded">Action Req</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Item 1 (Critical) -->
+<div class="bg-surface-container-lowest p-3 rounded flex items-center justify-between border-l-2 border-tertiary-container border border-outline-variant/50">
+<div class="flex flex-col">
+<span class="font-body text-sm font-medium text-on-surface">Gate A North</span>
+<span class="font-body text-xs text-on-surface-variant">Security Checkpoint</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline text-lg font-bold text-tertiary">42m</span>
+<span class="font-body text-[10px] text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +12m
+                                    </span>
+</div>
+</div>
+<!-- Item 2 (Warning) -->
+<div class="bg-surface-container-lowest p-3 rounded flex items-center justify-between border-l-2 border-tertiary border border-outline-variant/50">
+<div class="flex flex-col">
+<span class="font-body text-sm font-medium text-on-surface">Concession Block C</span>
+<span class="font-body text-xs text-on-surface-variant">Food &amp; Bev</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline text-lg font-bold text-tertiary">28m</span>
+<span class="font-body text-[10px] text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +5m
+                                    </span>
+</div>
+</div>
+<!-- Item 3 (Warning) -->
+<div class="bg-surface-container-lowest p-3 rounded flex items-center justify-between border-l-2 border-tertiary border border-outline-variant/50">
+<div class="flex flex-col">
+<span class="font-body text-sm font-medium text-on-surface">Restrooms Sector 4</span>
+<span class="font-body text-xs text-on-surface-variant">Facilities</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline text-lg font-bold text-tertiary">22m</span>
+<span class="font-body text-[10px] text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +2m
+                                    </span>
+</div>
+</div>
+<!-- Item 4 (Stable) -->
+<div class="bg-surface-container-lowest p-3 rounded flex items-center justify-between border-l-2 border-primary-container border border-outline-variant/50">
+<div class="flex flex-col">
+<span class="font-body text-sm font-medium text-on-surface">Merch Stand West</span>
+<span class="font-body text-xs text-on-surface-variant">Retail</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline text-lg font-bold text-primary">14m</span>
+<span class="font-body text-[10px] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_flat</span> Stable
+                                    </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Grid of Facilities -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Action Bar -->
+<div class="bg-surface rounded-lg p-4 flex flex-wrap justify-between items-center border border-outline-variant shadow-sm gap-4">
+<div class="flex gap-2">
+<button class="bg-surface-container-highest text-primary px-3 py-1.5 rounded text-xs font-medium border-b-2 border-primary">All Zones</button>
+<button class="bg-transparent text-on-surface-variant hover:bg-surface-container px-3 py-1.5 rounded text-xs font-medium transition-colors">Food &amp; Bev</button>
+<button class="bg-transparent text-on-surface-variant hover:bg-surface-container px-3 py-1.5 rounded text-xs font-medium transition-colors">Merch</button>
+</div>
+<div class="relative w-full md:w-auto">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full md:w-64 bg-surface-container border border-outline-variant text-sm text-on-surface pl-9 pr-3 py-1.5 rounded focus:ring-1 focus:ring-primary focus:border-b-2 focus:border-primary transition-all" placeholder="Search facilities..." type="text"/>
+</div>
+</div>
+<!-- Facility Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Card 1 -->
+<div class="bg-surface rounded-lg p-5 border border-outline-variant shadow-sm hover:shadow transition-shadow group cursor-pointer relative overflow-hidden">
+<!-- Subtle gradient accent -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-bl-full -mr-10 -mt-10 blur-xl"></div>
+<div class="flex justify-between items-start mb-3 relative z-10">
+<div>
+<h4 class="font-body text-base font-semibold text-on-surface">Burger Haven</h4>
+<span class="font-body text-xs text-on-surface-variant">Concourse B • Sector 2</span>
+</div>
+<span class="material-symbols-outlined text-tertiary bg-tertiary-container/30 p-1.5 rounded-full text-[18px]">restaurant</span>
+</div>
+<div class="flex items-end gap-4 mb-4 relative z-10">
+<div>
+<span class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">Current Wait</span>
+<span class="font-headline text-2xl font-bold text-tertiary">26m</span>
+</div>
+<div class="mb-1">
+<span class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">Projected (15m)</span>
+<span class="font-headline text-lg font-bold text-on-surface">32m</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded p-3 mb-4 relative z-10">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body text-xs text-on-surface-variant">Service Speed</span>
+<span class="font-body text-xs font-medium text-on-surface">2.4 mins/order</span>
+</div>
+<!-- Micro sparkline representation -->
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden flex">
+<div class="h-full bg-primary-container w-[40%]"></div>
+<div class="h-full bg-tertiary w-[60%]"></div>
+</div>
+</div>
+<div class="flex justify-between items-center pt-2 border-t border-outline-variant relative z-10">
+<span class="font-body text-xs text-on-surface-variant">Alt: Pizza Corner (12m)</span>
+<button class="text-primary font-medium text-xs hover:text-primary-container transition-colors flex items-center gap-1">
+                                    Manage V-Queue <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-lg p-5 border border-outline-variant shadow-sm hover:shadow transition-shadow group cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-bl-full -mr-10 -mt-10 blur-xl"></div>
+<div class="flex justify-between items-start mb-3 relative z-10">
+<div>
+<h4 class="font-body text-base font-semibold text-on-surface">Craft Beer Station</h4>
+<span class="font-body text-xs text-on-surface-variant">Concourse A • Sector 1</span>
+</div>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-full text-[18px]">sports_bar</span>
+</div>
+<div class="flex items-end gap-4 mb-4 relative z-10">
+<div>
+<span class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">Current Wait</span>
+<span class="font-headline text-2xl font-bold text-primary">8m</span>
+</div>
+<div class="mb-1">
+<span class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">Projected (15m)</span>
+<span class="font-headline text-lg font-bold text-on-surface">10m</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded p-3 mb-4 relative z-10">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body text-xs text-on-surface-variant">Service Speed</span>
+<span class="font-body text-xs font-medium text-on-surface">1.1 mins/order</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden flex">
+<div class="h-full bg-primary-container w-[85%]"></div>
+<div class="h-full bg-surface-container-high w-[15%]"></div>
+</div>
+</div>
+<div class="flex justify-between items-center pt-2 border-t border-outline-variant relative z-10">
+<span class="font-body text-xs text-on-surface-variant">Optimal Flow</span>
+<button class="text-primary font-medium text-xs hover:text-primary-container transition-colors flex items-center gap-1">
+                                    Details <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="lg:hidden flex justify-around items-center px-4 pt-2 pb-safe w-full bg-surface/90 backdrop-blur-xl fixed bottom-0 z-50 rounded-t-lg border-t border-outline-variant shadow-[0_-10px_30px_rgba(0,0,0,0.1)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined mb-1">group</span>
+<span class="font-inter text-[10px] uppercase tracking-widest">Flow</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary/10 text-primary rounded-xl p-2 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1 fill">hourglass_empty</span>
+<span class="font-inter text-[10px] uppercase tracking-widest font-bold">Queues</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined mb-1">map</span>
+<span class="font-inter text-[10px] uppercase tracking-widest">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined mb-1">report_problem</span>
+<span class="font-inter text-[10px] uppercase tracking-widest">Incidents</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined mb-1">menu</span>
+<span class="font-inter text-[10px] uppercase tracking-widest">More</span>
+</a>
+</nav>
+</body></html>

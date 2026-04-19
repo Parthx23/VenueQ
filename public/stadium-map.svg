@@ -1,0 +1,107 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <linearGradient id="fieldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a5c32"/>
+      <stop offset="100%" stop-color="#0d4a24"/>
+    </linearGradient>
+    <linearGradient id="trackGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c4543a"/>
+      <stop offset="100%" stop-color="#a03828"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#e8e7e3"/>
+
+  <!-- Outer Stadium Shell -->
+  <ellipse cx="600" cy="450" rx="570" ry="420" fill="#d5d3cf" stroke="#bfc8ca" stroke-width="2"/>
+  
+  <!-- Concourse Ring (walkable area) -->
+  <ellipse cx="600" cy="450" rx="520" ry="380" fill="#eeede8" stroke="#bfc8ca" stroke-width="1"/>
+
+  <!-- Seating Bowl -->
+  <ellipse cx="600" cy="450" rx="440" ry="310" fill="#c8c6c1" stroke="#b0adaa" stroke-width="1"/>
+  
+  <!-- Seating Section Lines -->
+  <g stroke="#9e9b97" stroke-width="0.5" opacity="0.6">
+    <!-- Radial section dividers -->
+    <line x1="600" y1="140" x2="600" y2="260"/>
+    <line x1="600" y1="640" x2="600" y2="760"/>
+    <line x1="160" y1="450" x2="280" y2="450"/>
+    <line x1="920" y1="450" x2="1040" y2="450"/>
+    <line x1="280" y1="220" x2="370" y2="290"/>
+    <line x1="920" y1="220" x2="830" y2="290"/>
+    <line x1="280" y1="680" x2="370" y2="610"/>
+    <line x1="920" y1="680" x2="830" y2="610"/>
+    <line x1="380" y1="170" x2="420" y2="270"/>
+    <line x1="820" y1="170" x2="780" y2="270"/>
+    <line x1="380" y1="730" x2="420" y2="630"/>
+    <line x1="820" y1="730" x2="780" y2="630"/>
+  </g>
+
+  <!-- Section Labels -->
+  <g font-family="Inter, sans-serif" font-size="11" fill="#6f797a" text-anchor="middle" font-weight="600">
+    <text x="600" y="185">SEC 101</text>
+    <text x="600" y="735">SEC 107</text>
+    <text x="210" y="455">SEC 110</text>
+    <text x="990" y="455">SEC 104</text>
+    <text x="320" y="265">SEC 111</text>
+    <text x="880" y="265">SEC 103</text>
+    <text x="320" y="650">SEC 109</text>
+    <text x="880" y="650">SEC 105</text>
+    <text x="440" y="195">SEC 112</text>
+    <text x="760" y="195">SEC 102</text>
+    <text x="440" y="720">SEC 108</text>
+    <text x="760" y="720">SEC 106</text>
+  </g>
+
+  <!-- Running Track -->
+  <ellipse cx="600" cy="450" rx="350" ry="230" fill="none" stroke="url(#trackGrad)" stroke-width="12" opacity="0.5"/>
+
+  <!-- Playing Field -->
+  <rect x="310" y="300" width="580" height="300" rx="8" fill="url(#fieldGrad)"/>
+  
+  <!-- Field markings -->
+  <g stroke="#fff" stroke-width="1.5" opacity="0.4">
+    <line x1="600" y1="300" x2="600" y2="600"/>
+    <circle cx="600" cy="450" r="50" fill="none"/>
+    <rect x="315" y="380" width="80" height="140" fill="none"/>
+    <rect x="805" y="380" width="80" height="140" fill="none"/>
+    <rect x="315" y="410" width="40" height="80" fill="none"/>
+    <rect x="845" y="410" width="40" height="80" fill="none"/>
+  </g>
+  
+  <!-- Field center circle dot -->
+  <circle cx="600" cy="450" r="4" fill="#fff" opacity="0.4"/>
+
+  <!-- MAIN STAGE marker -->
+  <rect x="520" y="420" width="160" height="60" rx="4" fill="#01696f" opacity="0.7"/>
+  <text x="600" y="456" font-family="Manrope, sans-serif" font-size="14" fill="#fff" text-anchor="middle" font-weight="800">MAIN STAGE</text>
+
+  <!-- Gate Labels around the outer edge -->
+  <g font-family="Manrope, sans-serif" font-size="13" fill="#01696f" text-anchor="middle" font-weight="800">
+    <text x="600" y="55">GATE A — NORTH</text>
+    <text x="600" y="870">GATE B — SOUTH</text>
+    <text x="60" y="455" transform="rotate(-90,60,455)">GATE D — WEST</text>
+    <text x="1140" y="455" transform="rotate(90,1140,455)">GATE C — EAST</text>
+  </g>
+  
+  <!-- Concourse Zone Labels -->
+  <g font-family="Inter, sans-serif" font-size="10" fill="#3f484a" text-anchor="middle" font-weight="600" letter-spacing="0.1em">
+    <text x="600" y="110" opacity="0.7">NORTH CONCOURSE</text>
+    <text x="600" y="815" opacity="0.7">SOUTH CONCOURSE</text>
+    <text x="130" y="455" transform="rotate(-90,130,455)" opacity="0.7">WEST WING</text>
+    <text x="1070" y="455" transform="rotate(90,1070,455)" opacity="0.7">EAST WING</text>
+    <text x="600" y="28" opacity="0.5">MAIN GATE PLAZA</text>
+  </g>
+
+  <!-- VIP Section marker -->
+  <rect x="830" y="340" width="90" height="30" rx="4" fill="#004f54" opacity="0.6"/>
+  <text x="875" y="360" font-family="Inter, sans-serif" font-size="9" fill="#9af0f7" text-anchor="middle" font-weight="700" letter-spacing="0.1em">VIP LOUNGE</text>
+
+</svg>

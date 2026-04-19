@@ -1,0 +1,20 @@
+{
+  "name": "venueflow-server",
+  "version": "1.0.0",
+  "description": "VenueFlow AI Backend - Real-time venue intelligence engine",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "seed": "node seed.js",
+    "simulate": "node simulator.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "cors": "^2.8.5",
+    "socket.io": "^4.7.5",
+    "better-sqlite3": "^11.3.0",
+    "uuid": "^10.0.0"
+  }
+}
