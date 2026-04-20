@@ -65,7 +65,7 @@ app.get('/api/zones/:id/density', async (req, res) => {
 app.get('/api/pois', async (req, res) => {
   const { type, zone_id, status } = req.query;
   const filter = {};
-  if (type) filter.type = type;
+  if (type) filter.type = type.toLowerCase();
   if (zone_id) filter.zone_id = zone_id;
   if (status) filter.status = status;
 
