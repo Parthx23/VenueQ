@@ -27,5 +27,10 @@ dist-ssr
 db.sqlite
 server/node_modules
 server/*.log
+server/*.db
+server/*.db-shm
+server/*.db-wal
 .env
 .env.*
+.env.local
+.vercel
