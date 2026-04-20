@@ -1,6 +1,8 @@
 import { io } from 'socket.io-client';
 
-const SOCKET_URL = 'http://localhost:3001';
+// Use the API URL but remove the /api suffix for the base socket connection
+const VITE_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const SOCKET_URL = VITE_API_URL.replace('/api', '');
 
 // Singleton socket instance
 let socket = null;
