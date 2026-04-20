@@ -33,17 +33,14 @@ function Hub() {
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
-      {/* Immersive Dashboard Background Video */}
-      <div className="absolute inset-0 z-0 overflow-hidden before:absolute before:inset-0 before:bg-background/80 before:z-10">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen"
-        >
-          <source src="/Untitled design.mp4" type="video/mp4" />
-        </video>
+      {/* Immersive Dashboard Background Video (YouTube Embed) */}
+      <div className="absolute inset-0 z-0 overflow-hidden before:absolute before:inset-0 before:bg-background/80 before:z-10 pointer-events-none">
+        <iframe
+          className="absolute top-1/2 left-1/2 w-[115vw] h-[115vh] -translate-x-1/2 -translate-y-1/2 object-cover opacity-60 mix-blend-screen"
+          src="https://www.youtube.com/embed/XryIwrqLOXs?autoplay=1&mute=1&controls=0&loop=1&playlist=XryIwrqLOXs&showinfo=0&modestbranding=1&iv_load_policy=3&rel=0&disablekb=1&enablejsapi=1"
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+        ></iframe>
       </div>
 
       <div className="relative z-10 h-full w-full overflow-y-auto p-6 md:p-12 no-scrollbar">

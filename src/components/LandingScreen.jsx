@@ -20,16 +20,16 @@ export default function LandingScreen({ onEnter }) {
 
   return (
     <div className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center overflow-hidden">
-      {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
-      >
-        <source src="/VenueQ_Hero_Animation_Video_Creation.mp4" type="video/mp4" />
-      </video>
+      {/* Background Video (YouTube Embed for repo size optimization) */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0 opacity-80 pointer-events-none">
+        <iframe
+          className="absolute top-1/2 left-1/2 w-[110vw] h-[110vh] -translate-x-1/2 -translate-y-1/2 object-cover"
+          src="https://www.youtube.com/embed/uAISeuW0wpc?autoplay=1&mute=1&controls=0&loop=1&playlist=uAISeuW0wpc&showinfo=0&modestbranding=1&iv_load_policy=3&rel=0&disablekb=1&enablejsapi=1"
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+        ></iframe>
+      </div>
       
       {/* Dark Gradient Overlay for better contrast */}
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-transparent to-transparent opacity-90"></div>
